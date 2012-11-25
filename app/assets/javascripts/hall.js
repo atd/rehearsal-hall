@@ -175,6 +175,27 @@ function setupScene() {
   rDoor.position.z = HALLWIDTH / 2 - 1;
   scene.add(rDoor);
 
+  // Some posters
+  var posterHeight = HALLHEIGHT * 2 / 3;
+  var posters = {
+    'jimi_hendrix.jpg' : [ 50,   1 ],
+    'bob-dylan.jpg'    : [ 500,  1 ],
+    'Queen.jpg'        : [ 300, -1 ],
+    'rolling.jpg'      : [ 500, -1 ],
+    'the-beatles.jpeg' : [ 600, -1 ]
+  }
+
+  $.each(posters, function(image, position) {
+    var texture  = new t.ImageUtils.loadTexture('/assets/posters/' + image);
+    var geometry = new t.CubeGeometry(texture.image.width / 10, texture.image.height / 10, 0);
+    var material = new t.MeshLambertMaterial({ map: texture });
+    var poster   = new t.Mesh(geometry, material);
+    poster.position.x = position[0];
+    poster.position.y = posterHeight;
+    poster.position.z = HALLWIDTH / 2 * position[1] - position[1];
+    scene.add(poster);
+  });
+  
 
   /*
   var addDefaultFloor = function(){
